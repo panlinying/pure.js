@@ -1,19 +1,19 @@
 {
   "name": "pure.js",
   "version": "1.0.0",
-  "description": "use pure Javascript write some interesting components with no dependencies",
+  "description": "one search input like Baidu or google by pure Javascript with no dependencies",
   "main": "index.js",
   "scripts": {
     "lint": "eslint src/js --fix",
-    "test": "test",
+    "test": "npm run lint",
     "clean": "rm -rf dist",
     "build": "npm run build:css && npm run build:js",
     "build:css": "postcss src/css/pure.css --use autoprefixer -o dist/pure.css --no-map",
     "build:js": "rollup -c",
-    "clear": "del-cli dist",
     "compress": "npm run compress:css && npm run compress:js",
     "compress:css": "postcss dist/pure.css -u cssnano -o dist/pure.min.css --no-map",
-    "compress:js": "uglifyjs dist/pure.js -o dist/pure.min.js -c -m --comments /^!/"
+    "compress:js": "uglifyjs dist/pure.js -o dist/pure.min.js -c -m --comments /^!/",
+    "publish":"npm run clean && npm run build && npm run compress"
   },
   "keywords": [
     "pure",

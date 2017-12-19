@@ -14,9 +14,10 @@
         <link rel="stylesheet" href="../dist/pure.min.css">
     </head>
     <body>
+        <p>输入a,ab,ac,abc 查看效果</p>
         <div class="example-class">
         </div>
-        <script src="../dist/pure.min.js"></script>
+        <script src="../dist/pure.js"></script>
         <script>
             // demo
             document.addEventListener('DOMContentLoaded', function() {
@@ -27,6 +28,9 @@
                                 return new RegExp('^' + searchVal).test(value);
                             }));
                         });
+                    },
+                    chooseEvent: function(val){
+                        console.log("you choose "+val);
                     }
                 });
             }, false);

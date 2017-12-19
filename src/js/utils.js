@@ -54,15 +54,24 @@ export function isFunction(value) {
  * @returns {Element} the elements after iterate
  */
 export function each(elements, callback) {
-	if (Array.isArray(elements) || isNumber(elements.length)) {
+	if(!elements) return;
+	if (typeof elements === 'object') {
+		const keys = Object.keys(elements);
+		if(keys.length === 0) {
+			callback.call(elements,0,elements);
+		} else {
+			keys.forEach((key) => {
+				callback.call(elements[key], key, elements[key]);
+			});
+		}
+	}
+	else if (Array.isArray(elements) || isNumber(elements.length)) {
 		let i;
 		for (i = 0; i < elements.length; i += 1) {
 			if (callback.call(elements[i], i, elements[i]) === false) return elements;
 		}
 	} else {
-		Object.keys(elements).forEach((key) => {
-			callback.call(elements[key], key, elements[key]);
-		});
+		throw new Error("each target not object ,array or array like");
 	}
 	return elements;
 }
@@ -114,7 +123,7 @@ export function addClass(element, className) {
 		const classList = [];
 		const cls = getSetClassName(ele);
 		className.split(/\+s/g).forEach((cl) => {
-			if (!ele.hasClass(cl)) classList.push(cl);
+			if (!hasClass(ele, cl)) classList.push(cl);
 		});
 		if (classList.length) getSetClassName(element, cls + (cls ? ' ' : '') + classList.join(' '));
 	});
@@ -137,6 +146,7 @@ export function removeClass(element, className) {
 		cls.split(/\+s/g).forEach((cl) => {
 			cls = cls.replace(cl, '');
 		});
+		getSetClassName(element, cls);
 	});
 }
 
